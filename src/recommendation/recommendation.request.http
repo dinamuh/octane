@@ -1,0 +1,19 @@
+### list all Recommendations 
+GET http://localhost:4000/recommendation
+
+
+### Create a new Recommendation
+POST http://localhost:4000/recommendation
+content-type: application/json
+
+{
+   "startPage": 1,
+    "userId":  1,  
+    "bookId": 1,
+    "endPage": 5
+}
+
+
+
+
+
