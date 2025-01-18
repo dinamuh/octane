@@ -1,0 +1,15 @@
+### list all Users 
+GET http://localhost:4000/user
+
+
+### Create a new User
+POST http://localhost:4000/user
+content-type: application/json
+
+{
+  "name": "User 2",
+  "email": "userTwo.gmail.com"
+}
+
+
+

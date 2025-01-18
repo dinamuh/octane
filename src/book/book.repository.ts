@@ -10,16 +10,16 @@ export class BookRepository {
     private readonly bookRepository: Repository<Book>,
   ) {}
 
-  createBook(title: string) {
+  createBook(title: string): Promise<Book> {
     const book = this.bookRepository.create({ title });
     return this.bookRepository.save(book);
   }
 
-  getBookByTitle(title: string) {
+  getBookByTitle(title: string): Promise<Book> {
     return this.bookRepository.findOne({ where: { title } });
   }
 
-  getBooks() {
+  getBooks(): Promise<Book[]> {
     return this.bookRepository.find();
   }
 }
