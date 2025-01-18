@@ -7,7 +7,7 @@ export class Book {
   id: number;
 
   @Column()
-  title: string;
+  name: string;
 
   @OneToMany(() => Recommendation, (recommendation) => recommendation.book)
   recommendations: Recommendation[];

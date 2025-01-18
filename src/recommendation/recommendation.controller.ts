@@ -12,10 +12,10 @@ export class RecommendationController {
     @Body() body: CreateRecommentationDto,
   ): Promise<Recommendation> {
     return this.recommendationService.createRecommendation(
-      body.userId,
-      body.bookId,
-      body.endPage,
-      body.startPage,
+      body.user_id,
+      body.book_id,
+      body.end_page,
+      body.start_page,
     );
   }
 }

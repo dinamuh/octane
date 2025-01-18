@@ -3,17 +3,17 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateRecommentationDto {
   @IsNumber()
   @IsNotEmpty()
-  userId;
+  user_id;
 
   @IsNumber()
   @IsNotEmpty()
-  bookId;
+  book_id;
 
   @IsNumber()
   @IsNotEmpty()
-  startPage;
+  start_page;
 
   @IsNumber()
   @IsNotEmpty()
-  endPage;
+  end_page;
 }
