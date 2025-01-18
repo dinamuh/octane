@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { IsEmail } from 'class-validator';
-import { Recommendation } from 'src/recommendation/recommendadtion.entity';
+import { Recommendation } from '../recommendation/recommendadtion.entity';
 
 @Entity()
 export class User {
