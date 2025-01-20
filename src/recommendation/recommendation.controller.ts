@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { RecommendationService } from './recommendation.service';
 import { CreateRecommentationDto } from './dto/create-recommendation.dto';
 import { Recommendation } from './recommendadtion.entity';
@@ -17,5 +17,10 @@ export class RecommendationController {
       body.end_page,
       body.start_page,
     );
+  }
+
+  @Get('/top-books')
+  async getTop() {
+    return this.recommendationService.getTopBooksByReading();
   }
 }

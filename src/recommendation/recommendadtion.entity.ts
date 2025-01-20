@@ -15,10 +15,10 @@ export class Recommendation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'start_page' })
   startPage: number;
 
-  @Column()
+  @Column({ name: 'end_page' })
   endPage: number;
 
   @ManyToOne(() => User, (user) => user.id)

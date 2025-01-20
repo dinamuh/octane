@@ -10,8 +10,8 @@ export class BookRepository {
     private readonly bookRepository: Repository<Book>,
   ) {}
 
-  createBook(name: string): Promise<Book> {
-    const book = this.bookRepository.create({ name });
+  createBook(name: string, pagesNumber: number): Promise<Book> {
+    const book = this.bookRepository.create({ name, pagesNumber });
     return this.bookRepository.save(book);
   }
 

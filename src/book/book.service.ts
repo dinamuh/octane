@@ -6,12 +6,12 @@ import { Book } from './book.entity';
 export class BookService {
   constructor(public bookRepository: BookRepository) {}
 
-  async createBook(name: string): Promise<Book> {
+  async createBook(name: string, pagesNumber: number): Promise<Book> {
     const existingBook = await this.bookRepository.getBookByTitle(name);
     if (existingBook) {
       throw new BadRequestException('Already Have Book with this Name !');
     }
-    return this.bookRepository.createBook(name);
+    return this.bookRepository.createBook(name, pagesNumber);
   }
 
   getBooks(): Promise<Book[]> {

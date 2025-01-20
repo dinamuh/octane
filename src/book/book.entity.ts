@@ -9,6 +9,9 @@ export class Book {
   @Column()
   name: string;
 
+  @Column({ name: 'pages_number', type: 'int' })
+  pagesNumber: number;
+
   @OneToMany(() => Recommendation, (recommendation) => recommendation.book)
   recommendations: Recommendation[];
 }

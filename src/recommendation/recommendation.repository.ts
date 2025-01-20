@@ -22,10 +22,26 @@ export class RecommendationRepository {
       endPage,
       startPage,
     });
-    return this.recommendationRepository.save(recommendation);
+    return this.recommendationRepository.save(recommendation).catch((e) => {
+      throw e;
+    });
   }
 
   getRecommendations(): Promise<Recommendation[]> {
-    return this.recommendationRepository.find();
+    return this.recommendationRepository.find().catch((e) => {
+      throw e;
+    });
+  }
+
+  async getTopBooksByReading() {
+    return this.recommendationRepository
+      .createQueryBuilder('recommendation')
+      .select('recommendation.book_id')
+      .addSelect('recommendation.startPage')
+      .addSelect('recommendation.endPage')
+      .getRawMany()
+      .catch((e) => {
+        throw e;
+      });
   }
 }
