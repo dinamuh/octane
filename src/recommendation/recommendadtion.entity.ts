@@ -6,24 +6,26 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity()
+@Unique(['user', 'book', 'startPage', 'endPage'])
 export class Recommendation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'start_page' })
   startPage: number;
 
-  @Column()
+  @Column({ name: 'end_page' })
   endPage: number;
 
-  @ManyToOne(() => User, (user) => user.recommendations)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Book, (book) => book.recommendations)
+  @ManyToOne(() => Book, (book) => book.id)
   @JoinColumn({ name: 'book_id' })
   book: Book;
 }
