@@ -36,9 +36,12 @@ export class RecommendationRepository {
   async getTopBooksByReading() {
     return this.recommendationRepository
       .createQueryBuilder('recommendation')
-      .select('recommendation.book_id')
-      .addSelect('recommendation.startPage')
-      .addSelect('recommendation.endPage')
+      .innerJoinAndSelect('recommendation.book', 'book')
+      .select('recommendation.book_id', 'bookId')
+      .addSelect('recommendation.startPage', 'startPage')
+      .addSelect('recommendation.endPage', 'endPage')
+      .addSelect('book.pagesNumber', 'pagesNumber')
+      .addSelect('book.name', 'bookName')
       .getRawMany()
       .catch((e) => {
         throw e;

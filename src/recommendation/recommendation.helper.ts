@@ -9,14 +9,8 @@ export class RecommendationHelper {
         return acc;
       }
       const current = acc[acc.length - 1];
-      if (
-        current.recommendation_end_page + 1 >=
-        range.recommendation_start_page
-      ) {
-        current.recommendation_end_page = Math.max(
-          current.recommendation_end_page,
-          range.recommendation_end_page,
-        );
+      if (current.endPage + 1 >= range.startPage) {
+        current.endPage = Math.max(current.endPage, range.endPage);
       } else {
         acc.push(range);
       }
@@ -26,31 +20,25 @@ export class RecommendationHelper {
 
   calculateUniquePages = async (recommendadtions) => {
     const bookRanges = recommendadtions.reduce(
-      (
-        acc,
-        { recommendation_start_page, recommendation_end_page, book_id },
-      ) => {
-        if (!acc[book_id]) {
-          acc[book_id] = [];
+      (acc, { startPage, endPage, bookId }) => {
+        if (!acc[bookId]) {
+          acc[bookId] = [];
         }
-        acc[book_id].push({
-          recommendation_start_page,
-          recommendation_end_page,
+        acc[bookId].push({
+          startPage,
+          endPage,
         });
         return acc;
       },
       {},
     );
-    const bookPromises = Object.keys(bookRanges).map(async (book_id) => {
-      const ranges = bookRanges[book_id];
+    const bookPromises = Object.keys(bookRanges).map(async (bookId) => {
+      const ranges = bookRanges[bookId];
       const mergedRanges = await this.mergeRanges(ranges);
       const totalPages = mergedRanges.reduce((acc, range) => {
-        return (
-          acc +
-          (range.recommendation_end_page - range.recommendation_start_page + 1)
-        );
+        return acc + (range.endPage - range.startPage + 1);
       }, 0);
-      return { book_id, totalPages };
+      return { book_id: bookId, totalPages };
     });
 
     return await Promise.all(bookPromises);
