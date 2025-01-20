@@ -1,0 +1,24 @@
+### list all Users 
+GET http://localhost:4000/user
+
+
+### Create a new User
+POST http://localhost:4000/user/signup
+content-type: application/json
+
+{
+  "name": "User 2",
+  "email": "userDal.gmail.com",
+  "password": "dalia123456"
+}
+
+### login 
+POST http://localhost:4000/user/login
+content-type: application/json
+
+{
+  "email": "userDal.gmail.com",
+  "password": "dalia123456"
+}
+
+

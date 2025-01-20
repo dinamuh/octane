@@ -1,0 +1,17 @@
+### list all Books 
+GET http://localhost:4000/book
+
+
+### Create a new Book
+POST http://localhost:4000/book
+content-type: application/json
+
+{
+  "name": "Book Twelve Title",
+  "pagesNumber": 1000
+}
+
+
+
+
+
