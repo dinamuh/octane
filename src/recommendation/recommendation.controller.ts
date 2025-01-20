@@ -1,12 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { RecommendationService } from './recommendation.service';
 import { CreateRecommentationDto } from './dto/create-recommendation.dto';
 import { Recommendation } from './recommendadtion.entity';
+import { JwtAuthGuard } from '../user/auth/auth.guard';
 
 @Controller('recommendation')
 export class RecommendationController {
   constructor(private readonly recommendationService: RecommendationService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createRecommendation(
     @Body() body: CreateRecommentationDto,

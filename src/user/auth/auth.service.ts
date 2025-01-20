@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { UserRepository } from '../user.repository';
@@ -61,5 +62,13 @@ export class AuthService {
         expiresIn: '1h',
       }),
     };
+  }
+  async validateUserByEmail(email: string) {
+    const existingUser = await this.userRepository.getUserByEmail(email);
+    if (!existingUser) {
+      console.log('ssssssss');
+      throw new UnauthorizedException('Invalid Token');
+    }
+    return true
   }
 }
