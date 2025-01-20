@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BookModule } from './book/book.module';
 import { RecommendationModule } from './recommendation/recommendation.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from './user/user.module';
     BookModule,
     RecommendationModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [],
