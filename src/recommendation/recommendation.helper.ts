@@ -19,28 +19,39 @@ export class RecommendationHelper {
   };
 
   calculateUniquePages = async (recommendadtions) => {
-    const bookRanges = recommendadtions.reduce(
-      (acc, { startPage, endPage, bookId }) => {
-        if (!acc[bookId]) {
-          acc[bookId] = [];
-        }
-        acc[bookId].push({
-          startPage,
-          endPage,
-        });
-        return acc;
-      },
-      {},
-    );
+    const bookRanges = recommendadtions.reduce((acc, recommendadtion) => {
+      const { startPage, endPage, bookName, pagesNumber, bookId } =
+        recommendadtion;
+      if (!acc[bookId]) {
+        acc[bookId] = [];
+      }
+      acc[bookId].push({
+        startPage,
+        endPage,
+        bookName,
+        pagesNumber,
+      });
+      return acc;
+    }, {});
+
     const bookPromises = Object.keys(bookRanges).map(async (bookId) => {
       const ranges = bookRanges[bookId];
       const mergedRanges = await this.mergeRanges(ranges);
       const totalPages = mergedRanges.reduce((acc, range) => {
         return acc + (range.endPage - range.startPage + 1);
       }, 0);
-      return { book_id: bookId, totalPages };
+      const { bookName, pagesNumber } = ranges[0];
+      return {
+        book_id: bookId,
+        book_name: bookName,
+        num_of_pages: pagesNumber,
+        num_of_read_pages: totalPages,
+      };
     });
 
-    return await Promise.all(bookPromises);
+    const topRatedBooks = await Promise.all(bookPromises);
+    return topRatedBooks
+      .sort((a, b) => b.num_of_read_pages - a.num_of_read_pages)
+      .slice(0, 5);
   };
 }
