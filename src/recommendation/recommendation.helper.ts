@@ -44,11 +44,12 @@ export class RecommendationHelper {
     const bookPromises = Object.keys(bookRanges).map(async (book_id) => {
       const ranges = bookRanges[book_id];
       const mergedRanges = await this.mergeRanges(ranges);
-      let totalPages = 0;
-      mergedRanges.forEach((range) => {
-        totalPages +=
-          range.recommendation_end_page - range.recommendation_start_page + 1;
-      });
+      const totalPages = mergedRanges.reduce((acc, range) => {
+        return (
+          acc +
+          (range.recommendation_end_page - range.recommendation_start_page + 1)
+        );
+      }, 0);
       return { book_id, totalPages };
     });
 
